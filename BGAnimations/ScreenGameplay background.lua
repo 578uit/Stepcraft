@@ -1,4 +1,6 @@
-return Def.ActorFrame{
+--Unused Elements
+
+--[[return Def.ActorFrame{
 		Def.Sprite {
 			OnCommand=function(self)
 				self:Load(THEME:GetPathG("", "_fallback bg/" .. ThemePrefs.Get("FallbackBG") .. ".png")
@@ -12,4 +14,4 @@ return Def.ActorFrame{
 				self:scale_or_crop_background()
 			end;
 		};
-}
+}]]

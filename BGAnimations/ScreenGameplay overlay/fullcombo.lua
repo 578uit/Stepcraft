@@ -9,9 +9,7 @@ local st = GAMESTATE:GetCurrentStyle():GetStepsType();
 
 local function GetPosition(pn)
 	if Center1Player and NumPlayers == 1 and NumSides == 1 then return SCREEN_CENTER_X; end;
-
 	return THEME:GetMetric("ScreenGameplay","Player".. ToEnumShortString(pn) .. "MiscX");
-
 end;
 
 t[#t+1] = LoadActor("twinkle1") .. {
@@ -37,7 +35,7 @@ t[#t+1] = Def.ActorFrame{
 		end;
 		OffCommand=function(self)
 			if pss:FullComboOfScore('TapNoteScore_W1') then
-				self:settext("FULL COMBO!");
+				self:settext("PERFECT!");
 				self:diffusealpha(0);
 				self:diffuse(color("#5DFBF7"));
 				self:zoom(0);

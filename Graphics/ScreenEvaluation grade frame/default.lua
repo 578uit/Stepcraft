@@ -53,20 +53,18 @@ local t = Def.ActorFrame{};
 
 t[#t+1] = Def.ActorFrame{
 	LoadActor("base frame")..{
-		InitCommand=cmd(diffuse, PlayerColor(player) ),
+		InitCommand=function(self) self:diffuse(PlayerColor(player)) end,
 	},
-
 	Def.ActorFrame{
-	OnCommand=function(self)
-		self:xy(-95*side(player),-149)
-	end;
+		OnCommand=function(self)
+			self:xy(-95*side(player),-149)
+		end,
 		LoadActor( THEME:GetPathG('','_difficulty icons') )..{
 			OnCommand=function(self)
 				self:xy(0,0):animate(0):playcommand("Update")
 			end;
 			UpdateCommand=function(self,parent) self:setstate( SetFrameDifficulty(player) ) end,
 		},
-
 		Def.BitmapText{
 			Font="Common Normal",
 			OnCommand=function(self)
@@ -74,65 +72,62 @@ t[#t+1] = Def.ActorFrame{
 				:halign( pnum(player)-1 ):playcommand("Update");
 			end;
 			UpdateCommand=function(self)
-					local steps = TrailOrSteps(player):GetDifficulty();
-						if GAMESTATE:IsCourseMode() then
-							self:settext( DifficultyName("Trail", player) )
-						else
-							self:settext( DifficultyName("Steps", player) )
-						end
-					self:diffuse( ContrastingDifficultyColor( steps ) )
-				end,
-			},
-
+				local steps = TrailOrSteps(player):GetDifficulty();
+				if GAMESTATE:IsCourseMode() then
+					self:settext( DifficultyName("Trail", player) )
+				else
+					self:settext( DifficultyName("Steps", player) )
+				end
+				self:diffuse( ContrastingDifficultyColor( steps ) )
+			end,
+		},
 		Def.BitmapText{
 			Font="Common Normal",
 			OnCommand=function(self)
 				self:zoom(0.9):x(42*side(player)):horizalign(player == PLAYER_1 and right or left):playcommand("Update")
 			end;
 			UpdateCommand=function(self)
-					self:settext( TrailOrSteps(player):GetMeter() )
-					self:diffuse( ContrastingDifficultyColor( TrailOrSteps(player):GetDifficulty() ) )
-				end,
-			},
-	};
-
-		Def.GraphDisplay{
-			InitCommand=function(self)
-				self:y(-36)
-			end,
-			BeginCommand=function(self)
-				self:Load("GraphDisplayP"..pnum(player))
-				local playerStageStats = STATSMAN:GetCurStageStats():GetPlayerStageStats(player)
-				local stageStats = STATSMAN:GetCurStageStats()
-				self:Set(stageStats, playerStageStats)
-				if GAMESTATE:IsCourseMode() then
-					-- hide the GraphDisplay's stroke ("line")
-					self:GetChild("Line"):visible(false)
-				else
-				    -- hide the GraphDisplay's body
-				    self:GetChild("")[2]:visible(false)
-				end
+				self:settext( TrailOrSteps(player):GetMeter() )
+				self:diffuse( ContrastingDifficultyColor( TrailOrSteps(player):GetDifficulty() ) )
 			end,
 		},
-
-		Def.ComboGraph{
-			InitCommand=function(self)
-				self:y(-7)
-			end,
-			BeginCommand=function(self)
-				self:Load("ComboGraphP"..pnum(player))
-				local playerStageStats = STATSMAN:GetCurStageStats():GetPlayerStageStats(player)
-				local stageStats = STATSMAN:GetCurStageStats()
-				self:Set(stageStats, playerStageStats)
-			end,
-		},
+	},
+	Def.GraphDisplay{
+		InitCommand=function(self)
+			self:y(-36)
+		end,
+		BeginCommand=function(self)
+			self:Load("GraphDisplayP"..pnum(player))
+			local playerStageStats = STATSMAN:GetCurStageStats():GetPlayerStageStats(player)
+			local stageStats = STATSMAN:GetCurStageStats()
+			self:Set(stageStats, playerStageStats)
+			if GAMESTATE:IsCourseMode() then
+				-- hide the GraphDisplay's stroke ("line")
+				self:GetChild("Line"):visible(false)
+			else
+				-- hide the GraphDisplay's body
+				self:GetChild("")[2]:visible(false)
+			end
+		end,
+	},
+	Def.ComboGraph{
+		InitCommand=function(self)
+			self:y(-7)
+		end,
+		BeginCommand=function(self)
+			self:Load("ComboGraphP"..pnum(player))
+			local playerStageStats = STATSMAN:GetCurStageStats():GetPlayerStageStats(player)
+			local stageStats = STATSMAN:GetCurStageStats()
+			self:Set(stageStats, playerStageStats)
+		end,
+	},
 
 	-- Grade time
 
 	
 	Def.BitmapText{
-		 Font="Common Normal", Text=CalculatePercentage(player), OnCommand=function(self)
-			self:horizalign(right):xy(115,-82):diffuse(PlayerColor(player)):zoom(1.6)
+		 Font="_minecraft ten", Text=CalculatePercentage(player), OnCommand=function(self)
+			self:horizalign(right):xy(115,-82):diffuse(PlayerColor(player)):zoom(0.5)
 		end
 	},
 
@@ -144,10 +139,10 @@ t[#t+1] = Def.ActorFrame{
 	},
 
 	Def.BitmapText{ Font="Common Normal", Text="Disqualified from ranking",
-	Condition=GetPSStageStats(player):IsDisqualified();
-	OnCommand=function(self)
-		self:xy(45,-65):zoom(0.8):shadowlength(2):wrapwidthpixels(400)
-	end,
+		Condition=GetPSStageStats(player):IsDisqualified();
+		OnCommand=function(self)
+			self:xy(45,-65):zoom(0.8):shadowlength(2):wrapwidthpixels(400)
+		end,
 	},
 };
 

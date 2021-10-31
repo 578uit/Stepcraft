@@ -17,17 +17,17 @@ return Def.ActorFrame{
 	TweenOffCommand=function(s)
 		s:accelerate(0.8):addy(-130)
 	end;
-	Def.Sprite{ Texture="meter frame" },
+	Def.Sprite{ 
+		Texture="meter frame" 
+	},
 	Def.SongMeterDisplay{
         InitCommand=function(self)
         	self:SetStreamWidth(SCREEN_WIDTH/2.1)
-        end;
-        
+        end;  
         Stream=LoadActor("meter stream")..{
         	InitCommand=function(self)
         		self:diffusealpha(1)
         	end
         };
     },
-
 }

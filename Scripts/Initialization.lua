@@ -9,6 +9,8 @@ local PlayerDefaults = {
 				ComboFont = "Minecraft",
 				HoldJudgment = "Minecraft 1x2.png",
 				Protiming = "Off",
+				Mini = "0%",
+				Stats = "Off",
 			}
 			self.Streams = {
 				SongDir = nil,

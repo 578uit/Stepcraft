@@ -6,7 +6,7 @@ return Def.ActorFrame{
 	LoadActor("../Combo 100milestone"),
 
 	LoadActor(THEME:GetPathG("firework.png"))..{
-		InitCommand=cmd(diffusealpha,0; blend,"BlendMode_Add"),
-		ThousandMilestoneCommand=cmd(finishtweening; zoom,0.25; diffusealpha,0.7; x,0; linear,0.7; zoom,3; diffusealpha,0)
+		InitCommand=function(self) self:diffusealpha(0):blend("BlendMode_Add") end,
+		ThousandMilestoneCommand=function(self) self:finishtweening():zoom(0.25):diffusealpha(0.7):x(0):linear(0.7):zoom(3):diffusealpha(0) end,
 	},
 }

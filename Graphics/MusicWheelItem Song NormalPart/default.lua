@@ -12,13 +12,13 @@ centerObjectProxy = nil;
 local t = Def.ActorFrame {
 
 
-Def.Quad {
-	InitCommand=cmd(setsize,300,96;diffuse,color("#00000090"));
-};
+	Def.Quad{
+		InitCommand=function(self) self:setsize(300,96):diffuse(color("#00000090")) end,
+	},
 --banner
 	Def.Sprite {
 		Name="Banner";
-		InitCommand=cmd(scaletoclipped,72,72;x,-100);
+		InitCommand=function(self) self:scaletoclipped(72,72):x(-100) end,
 		--[[BannerCommand=cmd(scaletoclipped,128,128);
 		JacketCommand=cmd(scaletoclipped,128,128);]]
 		SetMessageCommand=function(self,params)
@@ -60,7 +60,7 @@ Def.Quad {
 	};
 --new song
 	LoadFont("_minecraft 14px") .. {
-		InitCommand=cmd(x,-100;y,-30;finishtweening;draworder,100;zoom,0.8);
+		InitCommand=function(self) self:x(-100):y(-30):finishtweening():draworder(100):zoom(0.8) end,
 		OnCommand=function(self)
 			local Colors = {
 				"#FF3C23",

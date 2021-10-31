@@ -1,5 +1,7 @@
 local swoosh, velocity
 
+local life = 0.5
+
 local Update = function(self)
 	velocity = -GAMESTATE:GetSongBPS()/2
 	if GAMESTATE:GetSongFreeze() then velocity = 0 end
@@ -25,12 +27,16 @@ local meter = Def.ActorFrame{
 	Def.Sprite{
 		Texture=THEME:GetPathG("","_health graphics/filling"),
 		OnCommand=function(self) 
-			local life = SCREENMAN:GetTopScreen():GetLifeMeter(PLAYER_1):GetLife()
+			if GAMESTATE:IsHumanPlayer(PLAYER_1) then
+				life = SCREENMAN:GetTopScreen():GetChild("LifeP1"):GetLife()
+			end
 			self:diffuse(1,1,1,1):MaskDest():zoomy(1.2):zoomx(1.02):x(0.5)
 			self:cropright(1 - life)
 		end,
 		LifeChangedMessageCommand=function(self,params)
-			local life = SCREENMAN:GetTopScreen():GetLifeMeter(PLAYER_1):GetLife()
+			if GAMESTATE:IsHumanPlayer(PLAYER_1) then
+				life = SCREENMAN:GetTopScreen():GetChild("LifeP1"):GetLife()
+			end
 			self:finishtweening()
 			self:linear(0.3)
 			self:cropright( 1 - life )
@@ -39,7 +45,9 @@ local meter = Def.ActorFrame{
 	Def.Sprite{
 		Texture=THEME:GetPathG("","_health graphics/filling"),
 		OnCommand=function(self) 
-			local life = SCREENMAN:GetTopScreen():GetLifeMeter(PLAYER_1):GetLife()
+			if GAMESTATE:IsHumanPlayer(PLAYER_1) then
+				life = SCREENMAN:GetTopScreen():GetChild("LifeP1"):GetLife()
+			end
 			self:diffuse(PlayerColor(PLAYER_1)):MaskDest():zoomy(1.2):zoomx(1.02):x(0.5)
 			self:cropright(1 - life)
 		end,
@@ -47,7 +55,9 @@ local meter = Def.ActorFrame{
 		-- when the engine broadcasts that the player's LifeMeter value has changed
 		-- change the width of this MeterFill Quad to accommodate
 		LifeChangedMessageCommand=function(self,params)
-			local life = SCREENMAN:GetTopScreen():GetLifeMeter(PLAYER_1):GetLife()
+			if GAMESTATE:IsHumanPlayer(PLAYER_1) then
+				life = SCREENMAN:GetTopScreen():GetChild("LifeP1"):GetLife()
+			end
 			self:finishtweening()
 			self:cropright( 1 - life )
 		end,
@@ -84,7 +94,9 @@ local meter = Def.ActorFrame{
 			self:effectclock('bgm')
 		end,
 		LifeChangedMessageCommand=function(self,params)
-			local life = SCREENMAN:GetTopScreen():GetLifeMeter(PLAYER_1):GetLife()
+			if GAMESTATE:IsHumanPlayer(PLAYER_1) then
+				life = SCREENMAN:GetTopScreen():GetChild("LifeP1"):GetLife()
+			end
 			self:finishtweening()
 			self:cropright( 1 - life )
 		end,

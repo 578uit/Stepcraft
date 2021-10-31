@@ -4,13 +4,19 @@ if ThemePrefs.Get("Challenge") ~= "Off" then
 	t[#t+1] = LoadActor(ThemePrefs.Get("Challenge"));
 end
 
+if GAMESTATE:GetNumPlayersEnabled() == 1 then
+	if SL.P1.ActiveModifiers.StatsPane == "On" or SL.P2.ActiveModifiers.StatsPane == "On" then
+		t[#t+1] = LoadActor("StatsPane")
+	end
+end
+
 t[#t+1] = LoadActor("BPMDisplay");
 
 t[#t+1] = LoadActor("songtitle");
 
 t[#t+1] = LoadActor("songmeter");
 
-t[#t+1] = LoadActor(THEME:GetPathG("", "pause_menu"))
+t[#t+1] = LoadActor("pause_menu");
 
 t[#t+1] = Def.ActorFrame{
 	OnCommand=function(self)
@@ -56,9 +62,8 @@ for player in ivalues( GAMESTATE:GetHumanPlayers() ) do
 end;
 
 for pn in ivalues(GAMESTATE:GetHumanPlayers()) do
-	t[#t+1] = LoadActor("fullcombo", pn) .. {
-	};
-end;
+	t[#t+1] = LoadActor("fullcombo", pn)
+end
 
 local function UpdateTime(self)
 	local c = self:GetChildren();
@@ -72,6 +77,7 @@ local function UpdateTime(self)
 		end;
 	end;
 end
+
 if GAMESTATE:GetCurrentCourse() then
 	if GAMESTATE:GetCurrentCourse():GetCourseType() == "CourseType_Survival" then
 		-- RemainingTime
@@ -97,6 +103,7 @@ if GAMESTATE:GetCurrentCourse() then
 		end
 	end;
 end;
+
 t.InitCommand=cmd(SetUpdateFunction,UpdateTime);
 
 return t

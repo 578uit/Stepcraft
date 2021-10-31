@@ -162,6 +162,33 @@ local Overrides = {
 	Protiming = {
 		Values = { "Off", "Only Offset Bars", "Only MS Count", "Offset Bars + MS Count" },
 	},
+	-------------------------------------------------------------------------
+	Mini = {
+		Choices = function()
+			local first	= -100
+			local last 	= 150
+			local step 	= 1
+
+			return stringify( range(first, last, step), "%g%%")
+		end,
+		SaveSelections = function(self, list, pn)
+			local mods, playeroptions = GetModsAndPlayerOptions(pn)
+
+			for i=1,#self.Choices do
+				if list[i] then
+					mods.Mini = self.Choices[i]
+				end
+			end
+
+			-- to make the arrows smaller, pass Mini() a value between 0 and 1
+			-- (to make the arrows bigger, pass Mini() a value larger than 1)
+			playeroptions:Mini( mods.Mini:gsub("%%","")/100 )
+		end
+	},
+	-------------------------------------------------------------------------
+	StatsPane = {
+		Values = { "Off", "On" },
+	},
 }
 
 

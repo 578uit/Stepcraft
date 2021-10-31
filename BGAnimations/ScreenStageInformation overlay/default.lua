@@ -23,23 +23,23 @@ local t = Def.ActorFrame{
 		end;
 	},
 	Def.Quad {
-			InitCommand=cmd(Center;scaletoclipped,SCREEN_WIDTH+1,SCREEN_HEIGHT);
-			OnCommand=cmd(diffuse,color("#000000");diffusebottomedge,color("#000000");diffusealpha,1);
-		};
+		InitCommand=function(self) self:Center():scaletoclipped(SCREEN_WIDTH+1,SCREEN_HEIGHT) end,
+		OnCommand=function(self) self:diffuse(color("#000000")):diffusebottomedge(color("#000000")):diffusealpha(1) end,
+	},
 	Def.ActorFrame{
 		Name="StageText";
 		Def.ActorFrame{
 			Name="Main";
 			Condition=not GAMESTATE:IsCourseMode();
 			LoadActor(THEME:GetPathG("_gameplay","stage "..curStage))..{
-				OnCommand=cmd(x,SCREEN_CENTER_X;y,SCREEN_BOTTOM+120;bounceend,0.5;Center;sleep,2);
+				OnCommand=function(self) self:x(SCREEN_CENTER_X):y(SCREEN_BOTTOM+120):bounceend(0.5):Center():sleep(2) end,
 			};
 		};
 		Def.ActorFrame{
 			Name="Main";
 			Condition=GAMESTATE:IsCourseMode();
 			LoadActor(THEME:GetPathG("_gameplay","course song 1"))..{
-				OnCommand=cmd(x,SCREEN_CENTER_X;y,SCREEN_BOTTOM+120;bounceend,0.5;Center;sleep,2);
+				OnCommand=function(self) self:x(SCREEN_CENTER_X):y(SCREEN_BOTTOM+120):bounceend(0.5):Center():sleep(2) end,
 			};
 		};
 		

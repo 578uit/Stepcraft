@@ -13,17 +13,17 @@ local t = Def.ActorFrame{
 		THEME:ReloadMetrics()
 	end,
 	LoadActor("logo.png")..{
-		InitCommand=cmd(zoom,1.5;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y-80),
+		InitCommand=function(self) self:zoom(1.5):x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y-80) end,
 	},
 	
 	LoadFont("_minecraft 14px")..{
-		Text=sm_version .. "     Version b1.6.0",
-		InitCommand=cmd(zoom,1;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y-160),
+		Text=sm_version .. "     Version b1.7.0",
+		InitCommand=function(self) self:zoom(1):x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y-160) end,
 	},
 	
 	LoadFont("_minecraft 14px")..{
 		Text=SongStats,
-		InitCommand=cmd(zoom,1;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y-140),
+		InitCommand=function(self) self:zoom(1):x(SCREEN_CENTER_X):y(SCREEN_CENTER_Y-140) end,
 	},
 }
 

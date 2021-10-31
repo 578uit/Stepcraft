@@ -39,36 +39,45 @@ local t = Def.ActorFrame {
 	-- load the combo milestones actors into the Player combo; they will
 	-- listen for the appropriate Milestone command from the engine
     LoadActor("explosion.png")..{
-	InitCommand=function(self)
-		self:diffusealpha(0):blend("BlendMode_Add")
-	end;
-	HundredMilestoneCommand=function(self)
-		self:rotationz(0):zoom(2.6):diffusealpha(0.5):linear(0.5):rotationz(90):zoom(2):diffusealpha(0)
-	end;
+		InitCommand=function(self)
+			self:diffusealpha(0):blend("BlendMode_Add")
+		end;
+		HundredMilestoneCommand=function(self)
+			self:rotationz(0):zoom(2.6):diffusealpha(0.5):linear(0.5):rotationz(90):zoom(2):diffusealpha(0)
+		end;
 	},
 
 	LoadActor("firework.png")..{
-	InitCommand=cmd(diffusealpha,0),
-	HundredMilestoneCommand=cmd(finishtweening; diffuse,color(ThemePrefs.Get("ComboFireworkColor")); rotationz,10; zoom,0.05; diffusealpha,1; decelerate,1.5; rotationz,120; zoom,1.5; diffusealpha,0)
+		InitCommand=function(self) self:diffusealpha(0) end,
+		HundredMilestoneCommand=function(self)
+			self:finishtweening():diffuse(color(ThemePrefs.Get("ComboFireworkColor"))):rotationz(10):zoom(0.05):diffusealpha(1)
+				:decelerate(1.5):rotationz(120):zoom(1.5):diffusealpha(0)
+		end,
 	},
 
 	-- 1000 Combo milestone
 	LoadActor("explosion.png")..{
-	InitCommand=function(self)
-		self:diffusealpha(0):blend("BlendMode_Add")
-	end;
-	ThousandMilestoneCommand=function(self)
-		self:rotationz(0):zoom(2.6):diffusealpha(0.5):linear(0.5):rotationz(90):zoom(2):diffusealpha(0)
-	end;
+		InitCommand=function(self)
+			self:diffusealpha(0):blend("BlendMode_Add")
+		end;
+		ThousandMilestoneCommand=function(self)
+			self:rotationz(0):zoom(2.6):diffusealpha(0.5):linear(0.5):rotationz(90):zoom(2):diffusealpha(0)
+		end;
 	},
 
 	LoadActor("firework.png")..{
-	InitCommand=cmd(diffusealpha,0),
-	ThousandMilestoneCommand=cmd(finishtweening; diffuse,color(ThemePrefs.Get("ComboFireworkColor"));zoom,0.05; diffusealpha,1; x,0; linear,1.5; zoom,2.7; rotationz,-180; diffusealpha,0)
+		InitCommand=function(self) self:diffusealpha(0) end,
+		ThousandMilestoneCommand=function(self)
+			self:finishtweening():diffuse(color(ThemePrefs.Get("ComboFireworkColor"))):zoom(0.05):diffusealpha(1):x(0)
+				:linear(1.5):zoom(2.7):rotationz(-180):diffusealpha(0)
+		end,
 	},
 	LoadActor("firework.png")..{
-	InitCommand=cmd(diffusealpha,0),
-	ThousandMilestoneCommand=cmd(finishtweening; diffuse,color(ThemePrefs.Get("ComboFireworkColor"));rotationz,10; zoom,0.05; diffusealpha,1; decelerate,1.5; rotationz,120; zoom,1.5; diffusealpha,0)
+		InitCommand=function(self) self:diffusealpha(0) end,
+		ThousandMilestoneCommand=function(self)
+			self:finishtweening():diffuse(color(ThemePrefs.Get("ComboFireworkColor"))):rotationz(10):zoom(0.05):diffusealpha(1)
+				:decelerate(1.5):rotationz(120):zoom(1.5):diffusealpha(0)
+		end,
 	},
 	LoadFont( "_combofonts/" .. comboType .. "/" .. comboType ) .. {
 		Name="Number";

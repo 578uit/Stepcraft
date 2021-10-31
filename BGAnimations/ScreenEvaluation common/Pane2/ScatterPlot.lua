@@ -19,6 +19,13 @@ local Offset, CurrentSecond, TimingWindow, x, y, c, r, g, b
 -- ---------------------------------------------
 
 local worst_window = PREFSMAN:GetPreference("TimingWindowSecondsW5")
+local windows = SL.Global.ActiveModifiers.TimingWindows
+for i=5,1 do
+	if windows[i] then
+		worst_window = PREFSMAN:GetPreference("TimingWindowSecondsW"..i)
+		break
+	end
+end
 
 -- ---------------------------------------------
 

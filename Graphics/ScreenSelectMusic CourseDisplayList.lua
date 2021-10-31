@@ -1,4 +1,4 @@
-return Def.CourseContentsList {
+return Def.CourseContentsList{
 	MaxSongs = 4;
     NumItemsToDraw = 8;
 	ShowCommand=function(self)
@@ -23,7 +23,6 @@ return Def.CourseContentsList {
 	end;
 
 	Display = Def.ActorFrame { 
-
 		LoadFont("DifficultyListRow number") .. {
 			Condition=GAMESTATE:IsPlayerEnabled(PLAYER_1);
 			InitCommand=function(self)
@@ -36,7 +35,6 @@ return Def.CourseContentsList {
 				self:finishtweening():y(-20):diffusealpha(0):sleep(0.125*params.Number):linear(0.125):y(0):diffusealpha(1);
 			end;
 		};
-
 		LoadFont("DifficultyListRow number") .. {
 			Condition=GAMESTATE:IsPlayerEnabled(PLAYER_2);
 			InitCommand=function(self)
@@ -49,7 +47,6 @@ return Def.CourseContentsList {
 				self:finishtweening():y(-20):diffusealpha(0):sleep(0.125*params.Number):linear(0.125):y(0):diffusealpha(1);
 			end;
 		};
-
 		Def.TextBanner{
 			InitCommand=function(self)
 				self:Load("CourseTextBanner"):zoom(0.75):halign(0):SetFromString("", "", "", "", "", "")

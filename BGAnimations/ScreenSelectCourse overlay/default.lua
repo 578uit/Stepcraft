@@ -1,5 +1,4 @@
 local t = Def.ActorFrame{
-
 	LoadActor("bar.lua")..{
 	};
 	LoadActor("hardcore.lua")..{
@@ -14,7 +13,6 @@ local t = Def.ActorFrame{
 			self:accelerate(0.5):addx(300)
 		end;
 	};
-
 }
 for player in ivalues(PlayerNumber) do
 	t[#t+1] = LoadActor( THEME:GetPathG('ScreenSelectMusic','PaneDisplay'), player )..{

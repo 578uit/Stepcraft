@@ -12,5 +12,5 @@ return Def.ActorFrame{
 				end
 			end
 		end;
-	};
-};
+	},
+}

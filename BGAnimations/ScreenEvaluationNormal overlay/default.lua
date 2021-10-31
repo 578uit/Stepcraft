@@ -1,4 +1,3 @@
--- fuck it i'll make my own grade tier system
 local GradePercentages = {
 	-- quad star
 	1.00,
@@ -58,7 +57,7 @@ local t = Def.ActorFrame{
 	-- store some attributes of this playthrough of this song in the global SL table
 	-- for later retrieval on ScreenEvaluationSummary
 	LoadActor("./GlobalStorage.lua"),
-};
+}
 
 local function side(pn)
 	local s = 1
@@ -78,40 +77,36 @@ local function pnum(pn)
 end
 
 for _, pn in pairs(GAMESTATE:GetEnabledPlayers()) do
-
-local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(pn)
-
-if pss:GetMachineHighScoreIndex() == 0 or pss:GetPersonalHighScoreIndex() == 0 then
-  t[#t+1] = LoadFont("_minecraft 14px")..{
-    OnCommand=function(self)
-	  self:settext("NEW HIGHSCORE!")
-	  self:xy(SCREEN_CENTER_X+(-185*side(pn)),SCREEN_CENTER_Y-124):zoom(1):diffusealpha(0)
-	  self:sleep(3):decelerate(0.3):diffusealpha(1)
-    end;
-	OffCommand=cmd(decelerate,0.3;diffusealpha,0);
-  };
-end;
-
-end;
+	local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(pn)
+	if pss:GetMachineHighScoreIndex() == 0 or pss:GetPersonalHighScoreIndex() == 0 then
+		t[#t+1] = LoadFont("_minecraft 14px")..{
+			OnCommand=function(self)
+				self:settext("NEW HIGHSCORE!")
+				self:xy(SCREEN_CENTER_X+(-185*side(pn)),SCREEN_CENTER_Y-124):zoom(1):diffusealpha(0)
+				self:sleep(3):decelerate(0.3):diffusealpha(1)
+			end,
+			OffCommand=function(self) self:decelerate(0.3):diffusealpha(0) end,
+		}
+	end
+end
 -- Grade and Frame Info
 for player in ivalues(PlayerNumber) do
 	t[#t+1] = Def.ActorFrame{
-	Condition=GAMESTATE:IsPlayerEnabled(player);
+		Condition=GAMESTATE:IsPlayerEnabled(player);
 		LoadActor( THEME:GetPathG("","ScreenEvaluation grade frame"), player )..{
-		InitCommand=function(self)
-		self:xy(SCREEN_CENTER_X+(-145*side(player)),SCREEN_CENTER_Y+54)
-		end,
-		OnCommand=function(self)
-			self:addx( (-SCREEN_WIDTH/2)*side(player) )
-			:sleep(3):decelerate(0.3)
-			:addx( (SCREEN_WIDTH/2)*side(player) )
-		end;
-		OffCommand=function(self)
-			self:accelerate(0.3):addx( (-SCREEN_WIDTH/2)*side(player) )
-		end;
-		};
-	};
-
+			InitCommand=function(self)
+				self:xy(SCREEN_CENTER_X+(-145*side(player)),SCREEN_CENTER_Y+54)
+			end,
+			OnCommand=function(self)
+				self:addx( (-SCREEN_WIDTH/2)*side(player) )
+				:sleep(3):decelerate(0.3)
+				:addx( (SCREEN_WIDTH/2)*side(player) )
+			end;
+			OffCommand=function(self)
+				self:accelerate(0.3):addx( (-SCREEN_WIDTH/2)*side(player) )
+			end;
+		},
+	}
 	t[#t+1] = Def.ActorFrame{
 		Condition=GAMESTATE:IsPlayerEnabled(player);
 		BeginCommand=function(self)
@@ -123,30 +118,28 @@ for player in ivalues(PlayerNumber) do
 		OffCommand=function(self)
 			self:accelerate(0.3):addx(-SCREEN_WIDTH/2*side(player))
 		end;
-			LoadActor( THEME:GetPathG("", "_grades/"..PlayerTier[player]..".lua" ) );
-	};
-	
+		LoadActor( THEME:GetPathG("", "_grades/"..PlayerTier[player]..".lua" ));
+	}	
 end
 
 for player in ivalues(GAMESTATE:GetHumanPlayers()) do
 	t[#t+1] = Def.ActorFrame{
 		Name=ToEnumShortString(player).."_AF_Upper",
 		LoadActor("Storage.lua", player),
-	};
-	
+	}	
 	t[#t+1] = Def.ActorFrame{
 		Name=ToEnumShortString(player).."_AF_Lower",
 		InitCommand=function(self)
-		self:xy(player == PLAYER_1 and SCREEN_CENTER_X-145 or SCREEN_CENTER_X+145,SCREEN_CENTER_Y-4)
+			self:xy(player == PLAYER_1 and SCREEN_CENTER_X-145 or SCREEN_CENTER_X+145,SCREEN_CENTER_Y-4)
 		end,
 		OnCommand=function(self)
 			self:addx(player == PLAYER_1 and (-SCREEN_WIDTH/2)*1 or (-SCREEN_WIDTH/2)*-1)
 			:sleep(3):decelerate(0.3)
 			:addx(player == PLAYER_1 and (SCREEN_WIDTH/2)*1 or (SCREEN_WIDTH/2)*-1)
-		end;
+		end,
 		OffCommand=function(self)
 			self:accelerate(0.3):addx(player == PLAYER_1 and (-SCREEN_WIDTH/2)*1 or (-SCREEN_WIDTH/2)*-1)
-		end;	
+		end,	
 	}
 end
 
@@ -160,55 +153,50 @@ t[#t+1] = Def.ActorFrame{
 	OffCommand=function(self)
 		SL.Global.Stages.PlayedThisGame = SL.Global.Stages.PlayedThisGame + 1
 	end,
-	Def.ActorFrame{
-
-		Def.BitmapText{
+	Def.BitmapText{
 		Font="Common Normal",
 		Text="Evaluation",
-			InitCommand=function(self) self:xy(SCREEN_LEFT+40,SCREEN_TOP+38) self:skewx(-0.16) self:horizalign(0) end,
-			OnCommand=function(self)
-				self:zoomx(0):zoomy(6):sleep(0.3):bounceend(.3):zoom(1.4)
-			end;
-			OffCommand=function(self)
-				self:accelerate(.2):zoomx(2):zoomy(0):diffusealpha(0)
-			end;
-		},
-
+		InitCommand=function(self) self:xy(SCREEN_LEFT+40,SCREEN_TOP+38) self:skewx(-0.16) self:horizalign(0) end,
+		OnCommand=function(self)
+			self:zoomx(0):zoomy(6):sleep(0.3):bounceend(.3):zoom(1.4)
+		end,
+		OffCommand=function(self)
+			self:accelerate(.2):zoomx(2):zoomy(0):diffusealpha(0)
+		end,
 	},
 	Def.BitmapText{
-	Font="_minecraft 14px",
-	Text="Select Music",
-		InitCommand=cmd(zoom,0.8; shadowlength,0.6; maxwidth, _screen.w/1.1 - 10; xy, _screen.cx, 49 ),
+		Font="_minecraft 14px",
+		Text="Select Music",
+		InitCommand=function(self)
+			self:zoom(0.8):shadowlength(0.6):maxwidth(_screen.w/1.1 - 10):xy(_screen.cx, 49)
+		end,
 		OnCommand=function(self)
 			self:setsize(418/2,164/2):ztest(1):y(SCREEN_TOP-150):sleep(3):decelerate(0.3):y(SCREEN_CENTER_Y-174)
 			local song = GAMESTATE:GetCurrentSong()
 			songtext = song:GetDisplayArtist() .. " - " .. song:GetDisplayFullTitle()
 			self:settext(songtext)
-		end;
+		end,
 		OffCommand=function(self)
 			self:accelerate(0.3):addy(-SCREEN_CENTER_X)
-		end;
+		end,
 	},
 	-- Banner frame
-
-
 	Def.Banner{
-	InitCommand=function(self) self:xy(SCREEN_CENTER_X-1,SCREEN_CENTER_Y-126)
-	if GAMESTATE:IsCourseMode() then
-		self:LoadFromCourse( GAMESTATE:GetCurrentCourse() )
-	else
-		self:LoadFromSong( GAMESTATE:GetCurrentSong() )
-	end
-	end,
-	OnCommand=function(self)
-		self:setsize(418/2,164/2):ztest(1):y(SCREEN_TOP-100):sleep(3):decelerate(0.3):y(SCREEN_CENTER_Y-124)
-	end;
-	OffCommand=function(self)
-		self:accelerate(0.3):addy(-SCREEN_CENTER_X)
-	end;
+		InitCommand=function(self) self:xy(SCREEN_CENTER_X-1,SCREEN_CENTER_Y-126)
+			if GAMESTATE:IsCourseMode() then
+				self:LoadFromCourse( GAMESTATE:GetCurrentCourse() )
+			else
+				self:LoadFromSong( GAMESTATE:GetCurrentSong() )
+			end
+		end,
+		OnCommand=function(self)
+			self:setsize(418/2,164/2):ztest(1):y(SCREEN_TOP-100):sleep(3):decelerate(0.3):y(SCREEN_CENTER_Y-124)
+		end,
+		OffCommand=function(self)
+			self:accelerate(0.3):addy(-SCREEN_CENTER_X)
+		end,
 	},
-	LoadActor("../clock")..{
-	},
+	LoadActor("../clock"),
 }
 
 return t;
