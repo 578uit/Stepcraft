@@ -1,0 +1,21 @@
+b1.7.0 - Halloween Update
+
+* New features:
+- New BG Block: Pumpkin and Netherrack!
+- Added Stats Pane for advanced steppers, it includes:
++ Judgment Meter and Number
++ Song Jacket
++ Notes Histogram, Gradient Life Graph and Scatter Plot
+- Added Mini modifier
+- Added SL Profile Save function
+- Added New Challenge: Pumpkin!
++ Play the game while wearing a pumpkin block on your head
+* Fixes:
+- Timing windows now function correctly
+- Add some lines for lifebar's codes
+* Changes:
+- Convert all cmd() to function()
+- Better code structures (so it's less messy)
+- Tweak grade animations
+- Fantastic full combo text changed to 'Perfect!' instead
+- Screen Select Music background preview now has a fade effect when switching between songs

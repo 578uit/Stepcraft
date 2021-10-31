@@ -44,31 +44,28 @@ local t = Def.ActorFrame{
 	t[#t+1] = Def.ActorFrame{
 		OnCommand=function(self)
 			self:xy(SCREEN_LEFT+35,SCREEN_TOP+38)
-		end;
-
+		end,
 		Def.BitmapText{
-		Font="_minecraft 14px",
-		Text="Select Modifiers",
-		InitCommand=function(self) self:x(self:GetWidth()/1.2) self:addy(-42) self:skewx(-0.16) end,
-		OnCommand=function(self)
-			self:zoomx(0):zoomy(6):sleep(0.3):bounceend(.3):zoom(1.4)
-		end;
-		OffCommand=function(self)
-			self:accelerate(.2):zoomx(2):zoomy(0):diffusealpha(0)
-		end;
-		},
-		
-		
+			Font="_minecraft 14px",
+			Text="Select Modifiers",
+			InitCommand=function(self) self:x(self:GetWidth()/1.2) self:addy(-42) self:skewx(-0.16) end,
+			OnCommand=function(self)
+				self:zoomx(0):zoomy(6):sleep(0.3):bounceend(.3):zoom(1.4)
+			end;
+			OffCommand=function(self)
+				self:accelerate(.2):zoomx(2):zoomy(0):diffusealpha(0)
+			end;
+		},		
 		Def.BitmapText{
-		Font="_minecraft 14px",
-		Text="",
-		InitCommand=function(self) self:x(self:GetWidth()/1.8) self:y(20) self:skewx(-0.16) end,
-		OnCommand=function(self)
-			self:zoomx(0):zoomy(6):sleep(0.3):bounceend(.3):zoom(0.9)
-		end;
-		OffCommand=function(self)
-			self:accelerate(.2):zoomx(2):zoomy(0):diffusealpha(0)
-		end;
+			Font="_minecraft 14px",
+			Text="",
+			InitCommand=function(self) self:x(self:GetWidth()/1.8) self:y(20) self:skewx(-0.16) end,
+			OnCommand=function(self)
+				self:zoomx(0):zoomy(6):sleep(0.3):bounceend(.3):zoom(0.9)
+			end;
+			OffCommand=function(self)
+				self:accelerate(.2):zoomx(2):zoomy(0):diffusealpha(0)
+			end;
 		},
 	}
 	-------------- PLAYER 1'S SPEED -------------------
@@ -81,8 +78,12 @@ local t = Def.ActorFrame{
 			local speed, mode= GetSpeedModeAndValueFromPoptions(PLAYER_1)
 			self:playcommand("SpeedChoiceChanged", {pn= PLAYER_1, mode= mode, speed= speed})
 		end,
-		BPMWillNotChangeCommand=cmd(diffuseshift;effectcolor1,color("#FF0707");effectcolor2,Color.White;effectclock,"beatnooffset"),
-		BPMWillChangeCommand=cmd(diffuseshift;effectcolor1,color("#FF0707");effectcolor2,Color.White;effectclock,"beatnooffset"),
+		BPMWillNotChangeCommand=function(self)
+			self:diffuseshift():effectcolor1(color("#FF0707")):effectcolor2(Color.White):effectclock("beatnooffset")
+		end,
+		BPMWillChangeCommand=function(self)
+			self:diffuseshift():effectcolor1(color("#FF0707")):effectcolor2(Color.White):effectclock("beatnooffset")
+		end,
 		SpeedChoiceChangedMessageCommand= function(self, param)
 			if param.pn ~= PLAYER_1 then return end
 			local text= "Speed:"
@@ -128,8 +129,12 @@ local t = Def.ActorFrame{
 			local speed, mode= GetSpeedModeAndValueFromPoptions(PLAYER_2)
 			self:playcommand("SpeedChoiceChanged", {pn= PLAYER_2, mode= mode, speed= speed})
 		end,
-		BPMWillNotChangeCommand=cmd(diffuseshift;effectcolor1,color("#60AEF6");effectcolor2,Color.White;effectclock,"beatnooffset"),
-		BPMWillChangeCommand=cmd(diffuseshift;effectcolor1,color("#60AEF6");effectcolor2,Color.White;effectclock,"beatnooffset"),
+		BPMWillNotChangeCommand=function(self)
+			self:diffuseshift():effectcolor1(color("#60AEF6")):effectcolor2(Color.White):effectclock("beatnooffset")
+		end,
+		BPMWillChangeCommand=function(self)
+			self:diffuseshift():effectcolor1(color("#60AEF6")):effectcolor2(Color.White):effectclock("beatnooffset")
+		end,
 		SpeedChoiceChangedMessageCommand= function(self, param)
 			if param.pn ~= PLAYER_2 then return end
 			local text= "Speed:"

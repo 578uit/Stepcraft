@@ -21,16 +21,9 @@ local SL_CustomPrefs =
 	{
 		Default = "dirt",
 		Choices = {
-			THEME:GetString("ThemePrefs", "dirt"),
-			THEME:GetString("ThemePrefs", "diamond"),
-			THEME:GetString("ThemePrefs", "planks"),
-			THEME:GetString("ThemePrefs", "tnt"),
-			THEME:GetString("ThemePrefs", "cheese"),
-			THEME:GetString("ThemePrefs", "piston"),
-			THEME:GetString("ThemePrefs", "emerald"),
-			"Gold Block", "Iron Block", "Redstone Block",
+			"Dirt", "Diamond", "Oak Planks", "TNT", "Sponge", "Piston", "Emerald Block", "Gold Block", "Iron Block", "Redstone Block", "Netherrack", "Pumpkin"
 		},
-		Values  = { "dirt", "diamond", "planks", "tnt", "cheese", "piston", "emerald", "gold", "iron", "redstone" },
+		Values  = { "dirt", "diamond", "planks", "tnt", "cheese", "piston", "emerald", "gold", "iron", "redstone", "netherrack", "pumpkin" },
 	},
 	SongBGBrightness =
 	{
@@ -59,8 +52,8 @@ local SL_CustomPrefs =
 	Challenge =
 	{
 		Default = "Off",
-		Choices = {"Off", "Freeze"},
-		Values = {"Off", "Freeze"}
+		Choices = {"Off", "Freeze", "Pumpkin"},
+		Values = {"Off", "Freeze", "Pumpkin"}
 	},
 };
 ThemePrefs.InitAll(SL_CustomPrefs)

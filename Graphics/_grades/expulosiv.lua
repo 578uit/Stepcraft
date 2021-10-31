@@ -1,5 +1,5 @@
 return Def.ActorFrame{
-	LoadActor("../_grades/graphics/Arrows_minisplode.png")..{
-		OnCommand=cmd(rotationz,10;zoom,.5;diffusealpha,1;linear,0.4;rotationz,0;zoom,3;diffusealpha,0),
+	LoadActor("../Combo 100milestone/firework.png")..{
+		OnCommand=function(self) self:blend("BlendMode_Add"):rotationz(10):zoom(0):diffusealpha(1):sleep(0.2):linear(0.7):rotationz(-10):zoom(2):diffusealpha(0) end,
 	}
 }

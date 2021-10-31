@@ -20,8 +20,10 @@ if GAMESTATE:IsPlayerEnabled(PLAYER_1) then
 	    OnCommand = function(self)
 	        self:x(SCREEN_CENTER_X):y(SCREEN_TOP+64):zoom(1)
 		end;
-		OffCommand=cmd(decelerate,0.8;diffusealpha,0);
-	};
+		OffCommand=function(self)
+			self:decelerate(0.8):diffusealpha(0)
+		end,
+	}
 end;
 
 if GAMESTATE:IsPlayerEnabled(PLAYER_2) and not GAMESTATE:IsPlayerEnabled(PLAYER_1) then
@@ -36,7 +38,9 @@ if GAMESTATE:IsPlayerEnabled(PLAYER_2) and not GAMESTATE:IsPlayerEnabled(PLAYER_
 	    OnCommand = function(self)
 	        self:x(SCREEN_CENTER_X):y(SCREEN_TOP+64):zoom(1)	
 		end;
-		OffCommand=cmd(decelerate,0.8;diffusealpha,0);
+		OffCommand=function(self)
+			self:decelerate(0.8):diffusealpha(0)
+		end,
 	};
 end;
 

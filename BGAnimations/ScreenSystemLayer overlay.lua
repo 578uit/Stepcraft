@@ -76,7 +76,7 @@ t[#t+1] = Def.ActorFrame {
 
 -- Wendy CreditText at lower-center of screen
 t[#t+1] = LoadFont("_minecraft 14px")..{
-	InitCommand=cmd(xy, _screen.cx, _screen.h-12; zoom,0.9; shadowlength,1; horizalign,center ),
+	InitCommand=function(self) self:xy( _screen.cx, _screen.h-12):zoom(0.9):shadowlength(1):horizalign(center) end,
 
 	OnCommand=function(self) self:playcommand("Refresh") end,
 	ScreenChangedMessageCommand=function(self) self:playcommand("Refresh") end,
@@ -122,7 +122,7 @@ t[#t+1] = LoadFont("_minecraft 14px")..{
 }
 
 t[#t+1] = LoadFont("_minecraft 14px")..{
-	InitCommand=cmd(x,SCREEN_LEFT+50;y,SCREEN_TOP+10;zoom,0.6;settext,"version b1.6.0"),
+	InitCommand=function(self) self:x(SCREEN_LEFT+50):y(SCREEN_TOP+10):zoom(0.6):settext("version b1.7.0") end,
 }
 	
 return t

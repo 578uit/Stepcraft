@@ -1,9 +1,9 @@
 return Def.ActorFrame{
 	LoadFont("_minecraft 14px")..{
-		InitCommand=cmd(y,SCREEN_TOP+16;x,SCREEN_CENTER_X-30;zoom,0.8;shadowlength,0;playcommand,"Update");
-		CurrentSongChangedMessageCommand=cmd(playcommand,"Update");
+		InitCommand=function(self) self:y(SCREEN_TOP+16):x(SCREEN_CENTER_X-30):zoom(0.8):shadowlength(0):playcommand("Update") end,
+		CurrentSongChangedMessageCommand=function(self) self:playcommand("Update") end,
 		UpdateCommand=function(self)
-		local timeintimer = self:GetSecsIntoEffect()
+			local timeintimer = self:GetSecsIntoEffect()
 			self:effectclock('music')
 			if timeintimer >= 0 then
 				self:settext(SecondsToMMSS(timeintimer))
@@ -15,10 +15,10 @@ return Def.ActorFrame{
 		end
 	},
 	LoadFont("_minecraft 14px")..{
-		InitCommand=cmd(y,SCREEN_TOP+16;x,SCREEN_CENTER_X+30;zoom,0.8;shadowlength,0;playcommand,"Update");
-		CurrentSongChangedMessageCommand=cmd(playcommand,"Update");
+		InitCommand=function(self) self:y(SCREEN_TOP+16):x(SCREEN_CENTER_X+30):zoom(0.8):shadowlength(0):playcommand("Update") end,
+		CurrentSongChangedMessageCommand=function(self) self:playcommand("Update") end,
 		UpdateCommand=function(self)
-		local totaltimer = GAMESTATE:GetCurrentSong():MusicLengthSeconds()
+			local totaltimer = GAMESTATE:GetCurrentSong():MusicLengthSeconds()
 			self:settext(SecondsToMMSS(totaltimer))
 		end
 	},

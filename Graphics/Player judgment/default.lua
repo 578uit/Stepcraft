@@ -81,7 +81,7 @@ t[#t+1] = Def.ActorFrame {
 			end
 
 		end,
-		ResetCommand=cmd(finishtweening; stopeffect; visible,false)
+		ResetCommand=function(self) self:finishtweening():stopeffect():visible(false) end,
 	},
 	
 	InitCommand=function(self)
@@ -171,8 +171,8 @@ t[#t+1] = Def.ActorFrame {
 				self:visible(false)
 			end
 		end,
-		OnCommand=cmd(shadowlength,1;zoom,1;y,-14;textglowmode,"TextGlowMode_Inner");
-		ResetCommand=cmd(finishtweening;stopeffect);
+		OnCommand=function(self) self:shadowlength(1):zoom(1):y(-14):textglowmode("TextGlowMode_Inner") end,
+		ResetCommand=function(self) self:finishtweening():stopeffect() end,
 	};
 	OffBar..{ Name="OffsetBar", OnCommand=function(s) s:y( -32 ) end },
 };

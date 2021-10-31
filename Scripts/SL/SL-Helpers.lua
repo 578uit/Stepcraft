@@ -394,10 +394,6 @@ SetGameModePreferences = function()
 
 	-- loop through human players and apply whatever mods need to be set now
 	for player in ivalues(GAMESTATE:GetHumanPlayers()) do
-		-- Now that we've set the SL table for TimingWindows appropriately,
-		-- use it to apply TimingWindows.
-		local TW_OptRow = CustomOptionRow( "TimingWindows" )
-		TW_OptRow:LoadSelections( TW_OptRow.Choices, player )
 
 
 		local player_modslevel = GAMESTATE:GetPlayerState(player):GetPlayerOptions("ModsLevel_Preferred")
@@ -408,6 +404,7 @@ SetGameModePreferences = function()
 		-- at the appropriate judgments during gameplay for this gamemode.
 		player_modslevel:MinTNSToHideNotes(SL.Preferences[SL.Global.GameMode].MinTNSToHideNotes)
 	end
+	PREFSMAN:SavePreferences()
 end
 
 -- -----------------------------------------------------------------------
@@ -508,11 +505,11 @@ function StripSpriteHints(filename)
 end
 
 function GetJudgmentGraphics()
-	local path = THEME:GetPathG('', 'judgments')
-	local files = FILEMAN:GetDirListing(path .. '/')
+	local path1 = THEME:GetPathG('', 'judgments')
+	local files1 = FILEMAN:GetDirListing(path1 .. '/')
 	local judgment_graphics = {}
 
-	for k,filename in ipairs(files) do
+	for k,filename in ipairs(files1) do
 
 		-- Filter out files that aren't judgment graphics
 		-- e.g. hidden system files like .DS_Store
@@ -521,7 +518,7 @@ function GetJudgmentGraphics()
 			-- use regexp to get only the name of the graphic, stripping out the extension
 			local name = filename:gsub(" %dx%d", ""):gsub(" %(doubleres%)", ""):gsub(".png", "")
 
-			-- Fill the table, special-casing Love so that it comes first.
+			-- Fill the table, special-casing Minecraft so that it comes first.
 			if name == "Minecraft" then
 				table.insert(judgment_graphics, 1, name)
 			else
